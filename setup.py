@@ -9,7 +9,7 @@ setup(
     version='0.0.1',
     description='Gradient Based Class Activation Maps for TensorFlow models.',
     py_modules=["tensorflow", "numpy"],
-    package_dir={'': 'src'},
+    package_dir={'': 'cnn_cam'},
     extras_require = {
         "dev" : ["twine>=4.0.2"]
     }

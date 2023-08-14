@@ -1,9 +1,0 @@
-Metadata-Version: 2.1
-Name: cnn-cam
-Version: 0.0.1
-Summary: Gradient Based Class Activation Maps for TensorFlow models.
-Description-Content-Type: text/markdown
-Provides-Extra: dev
-
-# GradCAM
-an open python library for researchers and developers to generate GradCAM explanations for the tensorflow CNN models. 
