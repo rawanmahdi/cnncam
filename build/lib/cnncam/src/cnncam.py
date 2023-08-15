@@ -1,6 +1,5 @@
 import tensorflow as tf
 import numpy as np
-# import cv2
 
 class GradCAM:
   def __init__(self, model, classIdx, layerName=None):
@@ -47,4 +46,3 @@ class GradCAM:
     heatmap = (heatmap * 255).astype("uint8")
 
     return heatmap
-  
