@@ -1,0 +1,5 @@
+tensorflow>=2.0.0
+numpy>=1.23
+
+[dev]
+twine>=4.0.2
