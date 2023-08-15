@@ -21,9 +21,7 @@ Other popular python ML frameworks will soon be supported by the cnn-cam library
 The below instructions assume you already have `pip` installed and exposed to the python environment where you want to run `cnncam`. 
 Official instructions for installing `pip` can be found [here](https://pip.pypa.io/en/stable/installation/)
 
-
-# Install cnncam
-Run the below pip command in a command line of your choice. 
+Run the below pip command in a shell of your choice. 
 ```
 pip install cnncam
 ```
