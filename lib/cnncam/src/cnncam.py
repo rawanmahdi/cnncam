@@ -22,6 +22,8 @@ Typical usage example:
 """
 
 import numpy as np
+import cv2
+import matplotlib.pyplot as plt
 import tensorflow as tf
 
 
@@ -34,17 +36,29 @@ class GradCAM:
             predicted label 
         layer_name: String of convolutional layer name to explain 
     """
-    def __init__(self, model, class_idx, layer_name=None):
+    def __init__(self, model, class_idx, layer_name, base_model=None):
         self.model = model
         self.class_idx = class_idx
         self.layer_name = layer_name
+        self.base_model = base_model
+        # TODO: add to docs that base model layers must be inputted and differently
 
-        if self.layer_name is None:
-            for layer in (self.model.layers):
-                if len(layer.output_shape) == 4:
-                    self.layer_name = layer.name
-                else:
-                    raise ValueError("Could not find 4D layer, enter layerName")
+        # if self.layer_name is None:
+        #     get_layer_name()
+        #     # for layer in (self.model.layers):
+        #     #     if len(layer.output_shape) == 4:
+        #     #         self.layer_name = layer.name
+        #     #     else:
+        #     #         raise ValueError("Could not find 4D layer, enter layerName")
+        # else:
+        #     for layer in (self.model.layers):
+        #         if(layer.name) == 4:
+        #             self.layer_name = layer.name
+        #         else:
+        #             raise ValueError("Could not find 4D layer, enter layerName")
+        check_layer_name(model=self.model,
+                            layer_name=self.layer_name,
+                            base_model=self.base_model)
 
     def get_heatmap(self, img, eps=1e-8):
         """_summary_
@@ -91,3 +105,52 @@ class GradCAM:
         heatmap = (heatmap * 255).astype("uint8")
 
         return heatmap
+
+# def get_layer_name(model, layer_name):
+#     layer_names = [layer.name for layer in model.layers]
+#     if layer_name=='last':
+#         for name in layer_names:
+
+
+
+
+def check_layer_name(model, layer_name, base_model):
+        if base_model == None:
+            layer_names = [layer.name for layer in model.layers]
+            if layer_name in layer_names:
+                if not isinstance(tf.keras.layers.Conv2D, model.get_layer(layer_name)):
+                    raise ValueError('The layer name you entered is not of type tensorflow.keras.layers.Conv2D. Please enter a Conv2D layer name.')
+            else:
+                raise ValueError('The layer name you entered could not be found in you model, please enter a valid Conv2D layer name.')
+        else: 
+            layer_names = [layer.name for layer in model.get_layer(base_model).layers] 
+            if layer_name in layer_names:
+                if not isinstance(tf.keras.layers.Conv2D, model.get_layer(base_model).get_layer(layer_name)):
+                    raise ValueError('The layer name you entered is not of type tensorflow.keras.layers.Conv2D. Please enter a Conv2D layer name.')
+            else:
+                raise ValueError('The layer name you entered could not be found in your base model, please enter a valid Conv2D layer name.')
+  
+
+def display_heatmap(model, predicted_class, layer_name, img, alpha=0.6, eps=1e-8):
+    """function to display heatmap overlayed onto image
+
+    Args:
+        model (_type_): _description_
+        predicted_class (_type_): _description_
+        layer_name (_type_): _description_
+        img (_type_): _description_
+        eps (_type_, optional): _description_. Defaults to 1e-8.
+    """
+    # Get GradCAM heatmap
+    gradcam = GradCAM(model, predicted_class, layer_name)
+    heatmap = gradcam.get_heatmap(img, eps=eps)
+
+    # Configure plot
+    heatmap = cv2.resize(heatmap, (224,224))
+    extent = 0,224,0,224
+    fig = plt.figure(frameon=False) 
+    # TODO : do i need the above line?
+    plt.imshow(np.squeeze(img).astype(np.uint8), extent=extent, extent=extent)
+    plt.imshow(heatmap, cmap=plt.cm.viridis, alpha=alpha, extent=extent)
+    # Display plot
+    plt.show()

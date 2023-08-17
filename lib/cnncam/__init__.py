@@ -1,3 +1,5 @@
 from .src.cnncam import (
-    GradCAM
+    GradCAM,
+    check_layer_name, 
+    display_heatmap
 )
