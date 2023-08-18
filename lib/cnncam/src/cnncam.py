@@ -44,10 +44,9 @@ class GradCAM:
     """class that generate GradCAM explanations as heatmaps
 
     Attributes:
-        model: keras.Model containing ?Conv_2D?  layer 
-        class_idx: int representing class label, may be true or 
-            predicted label 
-        layer_name: String of convolutional layer name to explain 
+        model: keras.model.Model containing at least one keras.layers.Conv2D layer 
+        class_idx: int representing predicted class label 
+        layer_name: str of convolutional layer name to explain 
     """
     def __init__(self, model, class_idx, layer_name, base_model=None):
         self.model = model
@@ -70,6 +69,7 @@ class GradCAM:
         Returns:
             numpy.ndarray: heatmap
         """
+        # TODO: define expected dimensions of input image
         # Add dim to img
         img = np.expand_dims(img, axis=0)
 
