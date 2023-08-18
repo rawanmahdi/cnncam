@@ -13,25 +13,12 @@ https://doi.org/10.1109/iccv.2017.74
 
 Typical usage example:
 
-  to get a matrix of numbers representing your heatmap:
-  
-  from cnncam import GradCAM 
-
   grad_cam = GradCAM(model=my_cnn, 
                     class_idx=pred, 
                     layer_name=conv_layer_name
                     )
 
   heatmap = grad_cam.get_heatmap(img)
-   
-  or to quickly and easily display a heatmap:
-  
-  from cnncam import display_heatmap
-  
-  display_heatmap(model=my_cnn,
-                  predicted_class=pred, 
-                  layer_name=layer_name,
-                  img)
 """
 
 import numpy as np
@@ -55,6 +42,20 @@ class GradCAM:
         self.layer_name = layer_name
         self.base_model = base_model
         # TODO: add to docs that base model layers must be inputted and differently
+
+        # if self.layer_name is None:
+        #     get_layer_name()
+        #     # for layer in (self.model.layers):
+        #     #     if len(layer.output_shape) == 4:
+        #     #         self.layer_name = layer.name
+        #     #     else:
+        #     #         raise ValueError("Could not find 4D layer, enter layerName")
+        # else:
+        #     for layer in (self.model.layers):
+        #         if(layer.name) == 4:
+        #             self.layer_name = layer.name
+        #         else:
+        #             raise ValueError("Could not find 4D layer, enter layerName")
         check_layer_name(model=self.model,
                         layer_name=self.layer_name,
                         base_model=self.base_model)
@@ -105,7 +106,7 @@ class GradCAM:
 
         return heatmap
 
-# TODO: def function to get last conv layer such that user can enter layer_name='last' instead of a proper layer name
+
 
 
 def check_layer_name(model, layer_name, base_model):

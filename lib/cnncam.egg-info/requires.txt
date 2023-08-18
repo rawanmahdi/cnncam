@@ -1,0 +1,8 @@
+tensorflow>=2.0.0
+keras>=2.12.0
+numpy>=1.23
+opencv-python>=4.7.0
+matplotlib>=3.7.0
+
+[dev]
+twine>=4.0.2
