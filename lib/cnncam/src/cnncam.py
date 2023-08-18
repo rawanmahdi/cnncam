@@ -69,7 +69,6 @@ class GradCAM:
         Returns:
             numpy.ndarray: heatmap
         """
-        # TODO: define expected dimensions of input image
         # Add dim to img
         img = np.expand_dims(img, axis=0)
 
