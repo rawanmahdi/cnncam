@@ -1,6 +1,6 @@
 # cnncam
 <!-- badges: start -->
-![Maintainer](https://img.shields.io/badge/maintainer-rawanmahid-pink)
+![Maintainer](https://img.shields.io/badge/maintainer-rawanmahdi-pink)
 [![PyPI version](https://badge.fury.io/py/cnncam.svg)](https://badge.fury.io/py/cnncam)
 [![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/pylint-dev/pylint) [![License:
 MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/license/mit/) 

@@ -1,12 +1,14 @@
 # cnncam
 <!-- badges: start -->
-![Maintainer](https://img.shields.io/badge/maintainer-rawanmahid-pink)
+![Maintainer](https://img.shields.io/badge/maintainer-rawanmahdi-pink)
 [![PyPI version](https://badge.fury.io/py/cnncam.svg)](https://badge.fury.io/py/cnncam)
 [![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/pylint-dev/pylint) [![License:
 MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/license/mit/) 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html) [![Github All Releases](https://img.shields.io/github/downloads/rawanmahdi/cnncam/total.svg)]()
 [![GitHub release](https://img.shields.io/github/release/rawanmahdi/cnncam.svg)](https://GitHub.com/rawanmahdi/cnncam/releases/)
+![TF](https://img.shields.io/badge/TF-black?style=flat-square&logo=tensorflow)
+![NumPy](https://img.shields.io/badge/NumPy-black?style=flat-square&logo=numpy)
 <!-- [![DOI](https://joss.theoj.org/papers/10.21105/joss.02027/status.svg)](https://doi.org/10.21105/joss.02027)
  -->
 <!-- badges: end -->
