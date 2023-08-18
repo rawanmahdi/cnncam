@@ -9,7 +9,7 @@ setup(
     # packages=['cnncam'],
     long_description=long_description, 
     long_description_content_type = 'text/markdown',
-    version='0.0.2',
+    version='0.0.4',
     description='Gradient Based Class Activation Maps for TensorFlow models.',
     py_modules=["cnncam"],
     install_requires= ["tensorflow>=2.0.0",

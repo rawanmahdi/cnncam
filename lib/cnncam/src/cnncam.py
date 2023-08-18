@@ -118,14 +118,14 @@ def check_layer_name(model, layer_name, base_model):
         if base_model == None:
             layer_names = [layer.name for layer in model.layers]
             if layer_name in layer_names:
-                if not isinstance(tf.keras.layers.Conv2D, model.get_layer(layer_name)):
+                if not isinstance(tf.keras.layers.Conv2D, type(model.get_layer(layer_name))):
                     raise ValueError('The layer name you entered is not of type tensorflow.keras.layers.Conv2D. Please enter a Conv2D layer name.')
             else:
                 raise ValueError('The layer name you entered could not be found in you model, please enter a valid Conv2D layer name.')
         else: 
             layer_names = [layer.name for layer in model.get_layer(base_model).layers] 
             if layer_name in layer_names:
-                if not isinstance(tf.keras.layers.Conv2D, model.get_layer(base_model).get_layer(layer_name)):
+                if not isinstance(tf.keras.layers.Conv2D, type(model.get_layer(base_model).get_layer(layer_name))):
                     raise ValueError('The layer name you entered is not of type tensorflow.keras.layers.Conv2D. Please enter a Conv2D layer name.')
             else:
                 raise ValueError('The layer name you entered could not be found in your base model, please enter a valid Conv2D layer name.')
@@ -150,7 +150,10 @@ def display_heatmap(model, predicted_class, layer_name, img, alpha=0.6, eps=1e-8
     extent = 0,224,0,224
     fig = plt.figure(frameon=False) 
     # TODO : do i need the above line?
-    plt.imshow(np.squeeze(img).astype(np.uint8), extent=extent, extent=extent)
+    plt.imshow(np.squeeze(img).astype(np.uint8), extent=extent)
     plt.imshow(heatmap, cmap=plt.cm.viridis, alpha=alpha, extent=extent)
     # Display plot
     plt.show()
+
+
+#%%
