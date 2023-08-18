@@ -41,7 +41,7 @@ display_heatmap(model=model, # your keras model
                 img=img, # your image
                 predicted_class=pred, # your models prediction for the image 
                 layer_name='block5_conv3', # the layer you would like to see GradCAM for 
-                alpha=0.8 # opacity of heatmap overlayed on image
+                alpha=0.6 # opacity of heatmap overlayed on image
                 )
 ```
 ![alt text](https://github.com/rawanmahdi/cnncam/blob/main/examples/output_images/meso_grass_hmap.png?raw=true)
