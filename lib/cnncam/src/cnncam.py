@@ -47,6 +47,7 @@ class GradCAM:
         model: keras.model.Model containing at least one keras.layers.Conv2D layer 
         class_idx: int representing predicted class label 
         layer_name: str of convolutional layer name to explain 
+        base_model: str of base model if your conv layer is within a base model, defaults to None 
     """
     def __init__(self, model, class_idx, layer_name, base_model=None):
         self.model = model
@@ -108,32 +109,34 @@ class GradCAM:
 
 
 def check_layer_name(model, layer_name, base_model):
-        if base_model == None:
-            layer_names = [layer.name for layer in model.layers]
-            if layer_name in layer_names:
-                if not isinstance(model.get_layer(layer_name),
-                                  keras.layers.convolutional.conv2d.Conv2D):
-                    raise ValueError('The layer name you entered is not of type tensorflow.keras.layers.Conv2D. Please enter a Conv2D layer name.')
-            else:
-                raise ValueError('The layer name you entered could not be found in you model, please enter a valid Conv2D layer name.')
-        else: 
-            layer_names = [layer.name for layer in model.get_layer(base_model).layers] 
-            if layer_name in layer_names:
-                if not isinstance(model.get_layer(base_model).get_layer(layer_name),
-                                  keras.layers.convolutional.conv2d.Conv2D):
-                    raise ValueError('The layer name you entered is not of type tensorflow.keras.layers.Conv2D. Please enter a Conv2D layer name.')
-            else:
-                raise ValueError('The layer name you entered could not be found in your base model, please enter a valid Conv2D layer name.')
+
+    if base_model == None:
+        layer_names = [layer.name for layer in model.layers]
+        if layer_name in layer_names:
+            if not isinstance(model.get_layer(layer_name),
+                                keras.layers.convolutional.conv2d.Conv2D):
+                raise TypeError('The layer name you entered is not of type tensorflow.keras.layers.Conv2D. Please enter a Conv2D layer name.')
+        else:
+            raise ValueError('The layer name you entered could not be found in you model, please enter a valid Conv2D layer name.')
+    else: 
+        layer_names = [layer.name for layer in model.get_layer(base_model).layers] 
+        if layer_name in layer_names:
+            if not isinstance(model.get_layer(base_model).get_layer(layer_name),
+                                keras.layers.convolutional.conv2d.Conv2D):
+                raise TypeError('The layer name you entered is not of type tensorflow.keras.layers.Conv2D. Please enter a Conv2D layer name.')
+        else:
+            raise ValueError('The layer name you entered could not be found in your base model, please enter a valid Conv2D layer name.')
   
 
-def display_heatmap(model, predicted_class, layer_name, img, alpha=0.6, eps=1e-8):
+def display_heatmap(model, img, predicted_class, layer_name, alpha=0.6, eps=1e-8):
     """function to display heatmap overlayed onto image
 
     Args:
-        model (_type_): _description_
-        predicted_class (_type_): _description_
-        layer_name (_type_): _description_
-        img (_type_): _description_
+        model (keras.models.Model): your model containing a convolutional layer
+        TODO: define required size of input image
+        img (ndarray): _description_
+        predicted_class (int): your models prediction for the input image
+        layer_name (str): name of a keras.layers.Conv2D layer within your model to be explained
         eps (_type_, optional): _description_. Defaults to 1e-8.
     """
     # Get GradCAM heatmap
