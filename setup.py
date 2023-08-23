@@ -18,6 +18,7 @@ setup(
                        "opencv-python>=4.7.0",
                        "matplotlib>=3.7.0"],
     extras_require = {
-        "dev" : ["twine>=4.0.2"]
+        "dev" : ["twine>=4.0.2", 
+                 "pytest>=7.4.0"]
     }
 )
