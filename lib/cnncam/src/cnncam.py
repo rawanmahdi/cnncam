@@ -12,19 +12,6 @@ Conference on Computer Vision (ICCV).
 https://doi.org/10.1109/iccv.2017.74 
 
 Typical usage example:
-
-  to get a matrix of numbers representing your heatmap:
-  
-  from cnncam import GradCAM 
-
-  grad_cam = GradCAM(model=my_cnn, 
-                    class_idx=pred, 
-                    layer_name=conv_layer_name
-                    )
-
-  heatmap = grad_cam.get_heatmap(img)
-   
-  or to quickly and easily display a heatmap:
   
   from cnncam import display_heatmap
   
@@ -45,7 +32,7 @@ class GradCAM:
 
     Attributes:
         model: keras.model.Model containing at least one keras.layers.Conv2D layer 
-        class_idx: int representing predicted class label 
+        class_idx: int representing your models prediction for the input image
         layer_name: str of convolutional layer name to explain 
         base_model: str of base model if your conv layer is within a base model, defaults to None 
     """
@@ -60,18 +47,19 @@ class GradCAM:
                         base_model=self.base_model)
 
     def get_heatmap(self, img, eps=1e-8):
-        """_summary_
+        """Computes attention map using gradient of prediction with respect to output of conv layer
 
         Args:
-            img (numpy.ndarray): array of size (224,224,224,3) 
-                representing image to explain output of
+            img (numpy.ndarray): array of size (img_size, img_size, 3) where img_size= your models expected input size 
+                or of size (1, img_size, img_size, 3)
             eps (float, optional): ????. Defaults to 1e-8.
 
         Returns:
-            numpy.ndarray: heatmap
+            numpy.ndarray: 2D array containing values of GradCAM heatmap
         """
         # Add dim to img
-        img = np.expand_dims(img, axis=0)
+        if img.shape[0]!=1:
+            img = np.expand_dims(img, axis=0)
 
         # Build model that maps image to activations of conv layer of model
         grad_model = tf.keras.models.Model(
@@ -109,6 +97,18 @@ class GradCAM:
 
 
 def check_layer_name(model, layer_name, base_model):
+    """Checks if user entered a valid layer name for their model
+
+    Args:
+        model (keras.model.Model): predictive model
+        layer_name (str): name of Conv2D layer you want to explain
+        base_model (keras.models.Model, optional): base model within overall model, this is only necessary if the
+            layer you would like to explain is within a base model in your model
+
+    Raises:
+        TypeError: raised if layer is not of type keras.layers.Conv2D
+        ValueError: raised if model does not contain layer with name layer_name
+    """    
 
     if base_model == None:
         layer_names = [layer.name for layer in model.layers]
@@ -129,12 +129,12 @@ def check_layer_name(model, layer_name, base_model):
   
 
 def display_heatmap(model, img, predicted_class, layer_name, alpha=0.6, eps=1e-8):
-    """function to display heatmap overlayed onto image
+    """Displays heatmap overlayed onto input image
 
     Args:
         model (keras.models.Model): your model containing a convolutional layer
-        TODO: define required size of input image
-        img (ndarray): _description_
+        img (numpy.ndarray): array of size (img_size, img_size, 3) where img_size= your models expected input size 
+            or of size (1, img_size, img_size, 3)
         predicted_class (int): your models prediction for the input image
         layer_name (str): name of a keras.layers.Conv2D layer within your model to be explained
         eps (_type_, optional): _description_. Defaults to 1e-8.
