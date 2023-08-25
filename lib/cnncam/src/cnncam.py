@@ -94,7 +94,27 @@ class GradCAM:
         return heatmap
 
 # TODO: def function to get last conv layer such that user can enter layer_name='last' instead of a proper layer name
+def get_layer_name(model, base_model):
+    """Gets final conv layer in model if user does not enter a layer name
 
+    Args:
+        model (keras.models.Model): predictive model
+        base_model (keras.models.Model, optional): if transfer learning from base model that contains Conv2D layer
+
+    Raises:
+        ValueError: raised if model has no convolutional layers
+
+    Returns:
+        str: name of final convolutional layer in model
+    """    
+    if base_model==None:
+        conv_layer_names = [layer.name for layer in model.layers if isinstance(layer, keras.layers.convolutional.conv2d.Conv2D)]
+    else:
+        conv_layer_names = [layer.name for layer in model.get_layer(base_model).layers if isinstance(layer, keras.layers.convolutional.conv2d.Conv2D)]
+    if conv_layer_names:
+        return conv_layer_names[-1]
+    else:
+        raise ValueError('The model you entered does not contain a Conv2D layer')
 
 def check_layer_name(model, layer_name, base_model):
     """Checks if user entered a valid layer name for their model
