@@ -7,8 +7,6 @@ MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.or
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html) [![Github All Releases](https://img.shields.io/github/downloads/rawanmahdi/cnncam/total.svg)]()
 [![GitHub release](https://img.shields.io/github/release/rawanmahdi/cnncam.svg)](https://GitHub.com/rawanmahdi/cnncam/releases/)
-![TF](https://img.shields.io/badge/TF-black?style=flat-square&logo=tensorflow)
-![NumPy](https://img.shields.io/badge/NumPy-black?style=flat-square&logo=numpy)
 <!-- [![DOI](https://joss.theoj.org/papers/10.21105/joss.02027/status.svg)](https://doi.org/10.21105/joss.02027)
  -->
 <!-- badges: end -->
@@ -46,6 +44,8 @@ display_heatmap(model=model, # your keras model
                 alpha=0.6 # opacity of heatmap overlayed on image
                 )
 ```
-![alt text](https://github.com/rawanmahdi/cnncam/blob/main/examples/output_images/meso_grass_hmap.png?raw=true)
+![alt text](https://github.com/rawanmahdi/cnncam/blob/main/examples/output_images/meso_grass_vgg16.jpg?raw=true)
+
+
 
 See `/examples` for executable examples, including the above application of our implementation of GradCAM on VGG-16 with the ower of this repo's very cute cat, meso.
