@@ -93,7 +93,7 @@ class GradCAM:
 
         return heatmap
 
-# TODO: def function to get last conv layer such that user can enter layer_name='last' instead of a proper layer name
+
 def get_layer_name(model, base_model):
     """Gets final conv layer in model if user does not enter a layer name
 

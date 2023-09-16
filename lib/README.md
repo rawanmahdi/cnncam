@@ -44,7 +44,7 @@ display_heatmap(model=model, # your keras model
                 alpha=0.6 # opacity of heatmap overlayed on image
                 )
 ```
-![alt text](https://github.com/rawanmahdi/cnncam/blob/main/examples/output_images/meso_grass_vgg16.jpg?raw=true)
+![alt text](https://github.com/rawanmahdi/cnncam/blob/main/examples/output_images/meso_grass_vgg16.png?raw=true)
 
 
 
