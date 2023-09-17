@@ -36,16 +36,32 @@ If you're only interested in seeing the heatmap images for your model's predicti
 
 ```python
 from cnncam import display_heatmap
+from keras.applications.vgg16 import VGG16
 
-display_heatmap(model=model, # your keras model
+display_heatmap(model=VGG16(), # your keras model
                 img=img, # your image
                 predicted_class=pred, # your models prediction for the image 
                 layer_name='block5_conv3', # the layer you would like to see GradCAM for 
                 alpha=0.6 # opacity of heatmap overlayed on image
                 )
 ```
+Output: 
 ![alt text](https://github.com/rawanmahdi/cnncam/blob/main/examples/output_images/meso_grass_vgg16.png?raw=true)
 
+We can observe the differences in convolutional layer behaviours across different models, for example, the below code executes the same function on Xception instead of VGG16:
 
+```python
+from cnncam import display_heatmap
+from keras.applications.xception import Xception
 
-See `/examples` for executable examples, including the above application of our implementation of GradCAM on VGG-16 with the ower of this repo's very cute cat, meso.
+display_heatmap(model=Xception(), # your keras model
+                img=img, # your image
+                predicted_class=pred, # your models prediction for the image 
+                layer_name='block5_conv3', # the layer you would like to see GradCAM for 
+                alpha=1 # opacity of heatmap overlayed on image
+                )
+```
+Output:
+![alt text](https://github.com/rawanmahdi/cnncam/blob/main/examples/output_images/meso_grass_xception.png?raw=true)
+
+See `/examples` for executable examples, including the above application of our implementation of GradCAM on VGG-16 with the owner of this repo's very cute cat, meso.
